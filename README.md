@@ -10,21 +10,29 @@ Partir d'un MCD et produire une base de données.
 
 # ANALYSE DE L'EXISTANT
 
-## Comics
+## Comics & Editeurs
 
 ### Problème(s)
 Les propriétés Scénariste et Dessinateur sont redondantes et risque d'apporter des incohérences. Par exemple, prenons une dessinatrice Jeanne MAS qui est intervenue sur plusieurs enregistrements de cette entité. Demain, Jeanne se marie et son nom de famille devient YOLO, il faudra donc modifier chacun des enregistrements où se trouve Jeanne en tant que dessinatrice en oubliant aucun enregistrement.
 On est dans le cas de la "Troisième forme normale" où tout attribut d'une entité doit dépendre de l'identifiant par une dépendance fonctionnelle directe.
 
+Nous avons également des incohérences de type de données pour (isbn et datePublication)
 ### Solution(s)
-
-Pour cela je préfère partir sur une nouvelle entité nommée "Intervenants" et une autre entité "Rôle".
-On enlève la entité Editeurs.
-Un comic a au moins 1 intervenant ou plusieurs 
-Un intervenant intervient au moins 1 fois sur un comic 
-
-Un intervenant possède au moins 1 rôle ou plusieurs
-Un rôle peut être possédé par au moins 1 ou plusieurs intervenants
+La date de publication est indiquée au format DateTime or nous n'avons pas besoin de stocker l'heure précise ainsi son type devient DATE.
+L'ISBN a un type integer mais par précautions je le transforme en varchar avec un maximum et un minimum de 13 charactères car ils 'agit d'une normalisation internationale et il sera toujours composé de 13 chiffres
+Pour les éditeurs, dessinateur et scénaristes, je prends l'hypothèse suivante :
+Un dessinateur peut être à la fois dessinateur et scénariste sur un comic. De plus, selon mes recherches il y a encore d'autres rôles sur un comic.
+Il peut y avoir également plusieurs éditeurs sur un même comic.
+Après reflexion, il est vrai qu'il est préférable d'éviter les associations ternaires mais selon ma vision et mon hypothèse la meilleure solution reste la solution ternaire.
+Ainsi la structure doit être modifiée :
+je préfère partir sur une nouvelle entité nommée "Person" et une autre entité "Role".
+On enlève l'entité Editeurs.
+Un comic est attribué à au moins 1 intervenant ou plusieurs 
+Un comic est attribué à au moins un rôle ou plusieurs
+Une personne se voit attribué à au moins un comic ou plusieurs
+Une personne est attribué à au moins un rôle ou plusieurs
+Un rôle est attribué à au moins une personne ou plusieurs 
+Un rôle est attribué à au moins un comic ou plusieurs
 
 ## Epoques
 ### Problème(s)
@@ -32,8 +40,8 @@ La propriété Annees est spécifiée en varchar soit une chaîne de charactère
 
 ### Solution(s)
 Je décide partir sur l'hypothèse qu'une époque à un début et une fin ainsi la propriété Annees va se transformer en 2 propriétés :
-- Debut integer
-- Fin integer
+- Debut YEAR
+- Fin YEAR
 
 ## Recompenses
 
@@ -65,8 +73,11 @@ Après des recherches sur la différence entre une collection et une série, je 
 On a la série star wars de l'éditeur Marvel. Cette série contient 115 comics. Dans ces 115 comics on sélectionne le volume 2 qui apparaît dans 12 collections différentes.
 Il est préférable d'éviter les associations ternaires. Selon l'exemple ci-dessus, on peut séparer cette relation. Car si une série comporte au moins 1 comic et qu'une collection comporte également au moins 1 comic, on peut facilement retrouver la série.
 
-## Problème génral
+## Problèmes globaux
 Il existe de bonnes pratiques dans la réalisation d'une base de données. Le nommage en fait partie. Il est préférable d'utiliser un nom générique, et s'il y a 2 mots il faut les séparer par un underscore.
+Je pars sur une traduction en anglais car c'est plus générique et accessible à tous si l'équipe est multiculturelle.
+
+## MCD modifié
 
 
 
