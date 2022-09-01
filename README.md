@@ -37,7 +37,9 @@ Un rôle est attribué à au moins un comic ou plusieurs
 ## Epoques
 ### Problème(s)
 La propriété Annees est spécifiée en varchar soit une chaîne de charactère.
-
+De plus, les cardinalités vont changer :
+Un comic possède au moins une époque ou plusieurs
+Une époque peut être possédée dans au moins 1 comic ou plusieurs
 ### Solution(s)
 Je décide partir sur l'hypothèse qu'une époque à un début et une fin ainsi la propriété Annees va se transformer en 2 propriétés :
 - Debut YEAR
@@ -73,11 +75,15 @@ Après des recherches sur la différence entre une collection et une série, je 
 On a la série star wars de l'éditeur Marvel. Cette série contient 115 comics. Dans ces 115 comics on sélectionne le volume 2 qui apparaît dans 12 collections différentes.
 Il est préférable d'éviter les associations ternaires. Selon l'exemple ci-dessus, on peut séparer cette relation. Car si une série comporte au moins 1 comic et qu'une collection comporte également au moins 1 comic, on peut facilement retrouver la série.
 
+## Epoques
+La relatio
 ## Problèmes globaux
 Il existe de bonnes pratiques dans la réalisation d'une base de données. Le nommage en fait partie. Il est préférable d'utiliser un nom générique, et s'il y a 2 mots il faut les séparer par un underscore.
 Je pars sur une traduction en anglais car c'est plus générique et accessible à tous si l'équipe est multiculturelle.
 
-## MCD modifié
+## Vue conception
+
+![sparkles](bdd.png)
 
 
 
