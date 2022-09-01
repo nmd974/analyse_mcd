@@ -6,7 +6,7 @@ Partir d'un MCD et produire une base de données.
 
 # ANNEXE
 
-![mcd](../mcd.png)
+![mcd](./mcd.png)
 
 # ANALYSE DE L'EXISTANT
 
