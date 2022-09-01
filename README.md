@@ -55,6 +55,20 @@ Le statut pose un problème à savoir le non respect de la 2FN. En effet, si on 
 ### Solution(s)
 Nous avons l'option de changer uniquement le type de la propriété en ENUM, mais par précautions je préfère faire une entité à part. On aura donc une nouvelle entité Statuts.
 
+## L'association ternaire comporte
+### Problème(s)
+On peut voir que Collections et Séries on une relation 1,1 des deux côtés or cela est impossible. La relation entre ces deux entités ne peut pas relier 2 entités dépendantes l'une de l'autre et ayant une cardinalité max de 1. Dans ce cas il faut réunir ces 2 entités dans une seule entité.
+Or une collection peut comporter plusieurs séries.
+
+### Solution(s)
+Après des recherches sur la différence entre une collection et une série, je pars sur l'exemple de star wars.
+On a la série star wars de l'éditeur Marvel. Cette série contient 115 comics. Dans ces 115 comics on sélectionne le volume 2 qui apparaît dans 12 collections différentes.
+Il est préférable d'éviter les associations ternaires. Selon l'exemple ci-dessus, on peut séparer cette relation. Car si une série comporte au moins 1 comic et qu'une collection comporte également au moins 1 comic, on peut facilement retrouver la série.
+
+## Problème génral
+Il existe de bonnes pratiques dans la réalisation d'une base de données. Le nommage en fait partie. Il est préférable d'utiliser un nom générique, et s'il y a 2 mots il faut les séparer par un underscore.
+
+
 
 
 
